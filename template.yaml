@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  clip-classifier-aws - hello-world: a container-image Lambda that calls Amazon
+  Bedrock (Claude) and returns a hard-coded classification. Proves IAM + Bedrock
+  access + SAM deploy before the real classifier is ported in.
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+
+Resources:
+  ClassifyFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./app
+      DockerTag: v1
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        ClassifyApi:
+          Type: HttpApi
+          Properties:
+            Path: /classify
+            Method: post
+      Policies:
+        # Scoped to the single action we need. Resource "*" is fine for a solo
+        # learning account; tightening to specific model ARNs is a later step.
+        - Statement:
+            # Least privilege: the running function only needs to invoke the model.
+            # (First-ever model subscription is a one-time account-level step, done by an
+            # admin principal - see docs/DESIGN.md - not by this role.)
+            - Effect: Allow
+              Action: bedrock:InvokeModel
+              Resource: "*"
+
+Outputs:
+  FunctionName:
+    Description: Deployed Lambda function name (use with `aws lambda invoke`)
+    Value: !Ref ClassifyFunction
+  ClassifyUrl:
+    Description: POST endpoint - curl {description, game} here
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/classify"

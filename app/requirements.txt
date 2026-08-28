@@ -1,0 +1,2 @@
+# No extra deps yet - boto3 ships in the Lambda Python base image.
+# The real-classifier port (Chunk 5) will add what it needs here.

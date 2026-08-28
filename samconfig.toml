@@ -1,0 +1,12 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "clip-classifier-aws"
+resolve_s3 = true
+s3_prefix = "clip-classifier-aws"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["ClassifyFunction=730335383253.dkr.ecr.us-east-1.amazonaws.com/clipclassifieraws86bbfd98/classifyfunction1a6215b8repo"]
+
+[default.global.parameters]
+region = "us-east-1"
