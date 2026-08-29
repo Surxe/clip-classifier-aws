@@ -2,8 +2,8 @@
 
 Loads the controlled vocabulary once at cold start, then classifies each request via
 Bedrock (Claude, constrained to the schema). Accepts either a direct invoke payload
-({"description": ..., "game": ...}) or an API Gateway proxy event (JSON string in `body`);
-API Gateway is wired up in the next step.
+({"description": ..., "game": ...}) or an API Gateway proxy event (JSON string in `body`),
+which is how the deployed `POST /classify` HTTP API endpoint invokes it.
 """
 import functools
 import json
