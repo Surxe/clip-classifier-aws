@@ -12,7 +12,7 @@ POST /classify  {"description": "clutch 1v3 retake to win the final round",
                  "proposed_tag": null}
 ```
 
-**What this demonstrates (resume summary):** Deployed a schema-constrained LLM
+**What this demonstrates:** Deployed a schema-constrained LLM
 classification service on AWS - Amazon Bedrock (Claude) behind AWS Lambda and API
 Gateway, with the function packaged as a Docker container image, least-privilege IAM,
 and the whole stack provisioned as infrastructure-as-code with AWS SAM.

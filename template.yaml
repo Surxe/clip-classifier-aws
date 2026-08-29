@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  clip-classifier-aws - hello-world: a container-image Lambda that calls Amazon
-  Bedrock (Claude) and returns a hard-coded classification. Proves IAM + Bedrock
-  access + SAM deploy before the real classifier is ported in.
+  clip-classifier-aws - a container-image Lambda behind an HTTP API that classifies a
+  free-text gaming-clip description against a controlled tag vocabulary via Amazon
+  Bedrock (Claude Haiku 4.5), using a forced tool call for schema-valid output.
 
 Globals:
   Function:
